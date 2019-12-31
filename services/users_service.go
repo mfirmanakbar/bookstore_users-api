@@ -1,7 +1,17 @@
 package services
 
-import "github.com/mfirmanakbar/bookstore_users-api/domain/users"
+import (
+	"github.com/mfirmanakbar/bookstore_users-api/domain/users"
+	"github.com/mfirmanakbar/bookstore_users-api/utils/erros"
+)
 
-func CreateUser(user users.User) (*users.User, error) {
+func CreateUser(user users.User) (*users.User, *erros.RestErr) {
+
 	return &user, nil
+
+	/*return nil, &erros.RestErr{
+		Message: "",
+		Status:  http.StatusInternalServerError,
+		Error:   "",
+	}*/
 }

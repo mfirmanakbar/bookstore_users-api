@@ -10,29 +10,14 @@ import (
 
 const (
 	indexUniqueEmail = "email_UNIQUE"
+	errorNoRows      = "no rows in result set"
 	queryInsertUser  = "INSERT INTO users(first_name, last_name, email, created_at) VALUES (?, ?, ?, ?);"
+	queryGetUser     = "SELECT id, first_name, last_name, email, created_at FROM users WHERE id=?"
 )
 
 var (
 	usersDB = make(map[int64]*User)
 )
-
-func (user *User) Get() *errors.RestErr {
-	if err := bookstore_users_db.Client.Ping(); err != nil {
-		panic(err)
-	}
-
-	result := usersDB[user.Id]
-	if result == nil {
-		return errors.NewNotFoundError(fmt.Sprintf("user %d not found", user.Id))
-	}
-	user.Id = result.Id
-	user.FirstName = result.FirstName
-	user.LastName = result.LastName
-	user.Email = result.Email
-	user.CreatedAt = result.CreatedAt
-	return nil
-}
 
 // #1. the purpose of pointer as * is to make us able to modified this user object
 // #2. Defer statements are generally used to ensure that the files are closed when your work is finished with them,
@@ -60,5 +45,26 @@ func (user *User) Save() *errors.RestErr { // #1
 		return errors.NewInternalServerError(fmt.Sprintf("error when trying to save user: %s", err.Error()))
 	}
 	user.Id = userId
+	return nil
+}
+
+// #1. Scan --> for read all columns from const queryGetUser by sequence
+//     &user.Id --> the pointer `&` --> it means to take and POPULATE (Mengisi)
+//	   the point is the pointer `&` to make us able to modified User as the method already
+func (user *User) Get() *errors.RestErr {
+	stmt, err := bookstore_users_db.Client.Prepare(queryGetUser)
+	if err != nil {
+		return errors.NewInternalServerError(err.Error())
+	}
+	defer stmt.Close()
+
+	result := stmt.QueryRow(user.Id)
+	if err := result.Scan(&user.Id, &user.FirstName, &user.LastName, &user.Email, &user.CreatedAt); err != nil { // #1
+		fmt.Println(err)
+		if strings.Contains(err.Error(), errorNoRows) {
+			return errors.NewNotFoundError(fmt.Sprintf("user %d not found", user.Id))
+		}
+		return errors.NewInternalServerError(fmt.Sprintf("error when trying to get user id: %d %s", user.Id, err.Error()))
+	}
 	return nil
 }

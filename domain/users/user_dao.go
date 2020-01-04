@@ -12,7 +12,7 @@ const (
 	queryGetUser              = "SELECT id, first_name, last_name, email, created_at, status FROM users WHERE id=?;"
 	queryUpdateUser           = "UPDATE users SET first_name=?, last_name=?, email=? WHERE id=?;"
 	queryDeleteUser           = "DELETE FROM users WHERE id=?;"
-	queryFindUserUserByStatus = "SELECT id, first_name, last_name, email, created_at FROM users WHERE status=?;"
+	queryFindUserUserByStatus = "SELECT id, first_name, last_name, email, created_at, status FROM users WHERE status=?;"
 )
 
 var (

@@ -9,7 +9,8 @@ import (
 
 const (
 	queryInsertUser = "INSERT INTO users(first_name, last_name, email, created_at) VALUES (?, ?, ?, ?);"
-	queryGetUser    = "SELECT id, first_name, last_name, email, created_at FROM users WHERE id=?"
+	queryGetUser    = "SELECT id, first_name, last_name, email, created_at FROM users WHERE id=?;"
+	queryUpdateUser = "UPDATE users SET first_name=?, last_name=?, email=? WHERE id=?;"
 )
 
 var (
@@ -55,6 +56,20 @@ func (user *User) Get() *errors.RestErr {
 
 	if getErr := result.Scan(&user.Id, &user.FirstName, &user.LastName, &user.Email, &user.CreatedAt); getErr != nil { // #3
 		return mysql_utils.ParseError(getErr)
+	}
+	return nil
+}
+
+func (user *User) Update() *errors.RestErr {
+	stmt, err := bookstore_users_db.Client.Prepare(queryUpdateUser)
+	if err != nil {
+		return errors.NewInternalServerError(err.Error())
+	}
+	defer stmt.Close()
+
+	_, err = stmt.Exec(user.FirstName, user.LastName, user.Email, user.Id)
+	if err != nil {
+		return mysql_utils.ParseError(err)
 	}
 	return nil
 }

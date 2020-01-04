@@ -1,6 +1,7 @@
 package mysql_utils
 
 import (
+	"fmt"
 	"github.com/go-sql-driver/mysql"
 	"github.com/mfirmanakbar/bookstore_users-api/utils/errors"
 	"strings"
@@ -19,12 +20,12 @@ func ParseError(err error) *errors.RestErr {
 		if strings.Contains(err.Error(), errorNoRows) {
 			return errors.NewNotFoundError("no error matching given id")
 		}
-		return errors.NewInternalServerError("error parsing databas response")
+		return errors.NewInternalServerError(fmt.Sprintf("error parsing database response from %s", sqlErr.Error()))
 	}
 
 	switch sqlErr.Number {
 	case 1062: // #2
-		return errors.NewBadRequestError("invalid data")
+		return errors.NewBadRequestError(fmt.Sprintf("invalid data from %s", sqlErr.Error()))
 	}
-	return errors.NewInternalServerError("error parsing databas request")
+	return errors.NewInternalServerError(fmt.Sprintf("error parsing database request from %s", sqlErr.Error()))
 }

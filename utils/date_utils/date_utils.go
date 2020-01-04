@@ -5,15 +5,21 @@ import (
 )
 
 const (
-	apiDateLayout = "2006-01-02T15:04:05Z"
+	apiDateLayout     = "2006-01-02T15:04:05Z"
+	apiDatabaseLayout = "2006-01-02 15:04:05"
 )
 
 // time.Now() is local time
 // time.Now().UTC() is standar global time
+
 func GetNow() time.Time {
 	return time.Now().UTC()
 }
 
 func GetNowString() string {
 	return GetNow().Format(apiDateLayout)
+}
+
+func GetNowDatabaseFormat() string {
+	return GetNow().Format(apiDatabaseLayout)
 }

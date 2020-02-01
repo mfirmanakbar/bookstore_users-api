@@ -11,13 +11,13 @@ import (
 // #2. 1062 --> a code mysql error about there's column with same value or duplicated value
 
 const (
-	errorNoRows = "no rows in result set" // #1
+	ErrorNoRows = "no rows in result set" // #1
 )
 
 func ParseError(err error) *errors.RestErr {
 	sqlErr, ok := err.(*mysql.MySQLError)
 	if !ok {
-		if strings.Contains(err.Error(), errorNoRows) {
+		if strings.Contains(err.Error(), ErrorNoRows) {
 			return errors.NewNotFoundError("no error matching given id")
 		}
 		return errors.NewInternalServerError(fmt.Sprintf("error parsing database response from %s", sqlErr.Error()))

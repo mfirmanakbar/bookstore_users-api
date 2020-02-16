@@ -1,9 +1,10 @@
 package mysql_utils
 
 import (
-	"fmt"
+	"errors"
 	"github.com/go-sql-driver/mysql"
-	"github.com/mfirmanakbar/bookstore_users-api/utils/errors"
+	"github.com/mfirmanakbar/bookstore_users-api/logger"
+	"github.com/mfirmanakbar/bookstore_utils-go/rest_errors"
 	"strings"
 )
 
@@ -14,18 +15,21 @@ const (
 	ErrorNoRows = "no rows in result set" // #1
 )
 
-func ParseError(err error) *errors.RestErr {
+func ParseError(err error) *rest_errors.RestErr {
 	sqlErr, ok := err.(*mysql.MySQLError)
 	if !ok {
 		if strings.Contains(err.Error(), ErrorNoRows) {
-			return errors.NewNotFoundError("no error matching given id")
+			return rest_errors.NewNotFoundError("no error matching given id")
 		}
-		return errors.NewInternalServerError(fmt.Sprintf("error parsing database response from %s", sqlErr.Error()))
+		logger.Info(sqlErr.Error())
+		return rest_errors.NewInternalServerError("error parsing database response", errors.New("database error"))
 	}
 
 	switch sqlErr.Number {
 	case 1062: // #2
-		return errors.NewBadRequestError(fmt.Sprintf("invalid data from %s", sqlErr.Error()))
+		logger.Info(sqlErr.Error())
+		return rest_errors.NewBadRequestError("invalid data")
 	}
-	return errors.NewInternalServerError(fmt.Sprintf("error parsing database request from %s", sqlErr.Error()))
+	logger.Info(sqlErr.Error())
+	return rest_errors.NewInternalServerError("error parsing database request", errors.New("database error"))
 }

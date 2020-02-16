@@ -114,7 +114,7 @@
   name = "github.com/mfirmanakbar/bookstore_utils-go"
   packages = ["rest_errors"]
   pruneopts = "UT"
-  revision = "8536948d1de64e2529232470a8271256e243775f"
+  revision = "e48bd3a5db0be12f4ae8499acefc6276ddfea617"
 
 [[projects]]
   digest = "1:33422d238f147d247752996a26574ac48dcf472976eda7f5134015f06bf16563"

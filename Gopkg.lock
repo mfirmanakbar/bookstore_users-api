@@ -99,22 +99,19 @@
 
 [[projects]]
   branch = "master"
-  digest = "1:6e0dd001c98f9f4b0f9fb12ecf7304552a875fa94a56597baf0b7d44845f3195"
+  digest = "1:5f1aa29357501e9e385ad8fbaa6a23511b49607309419e158f5db572e520f645"
   name = "github.com/mfirmanakbar/bookstore_oauth-go"
-  packages = [
-    "oauth",
-    "oauth/errors",
-  ]
+  packages = ["oauth"]
   pruneopts = "UT"
-  revision = "ff568f07a788554949b845247a7ea9f383d05b12"
+  revision = "3d3df739ecc0785e1a6125bb697beb8e64e84414"
 
 [[projects]]
-  branch = "master"
-  digest = "1:74ecc59dd8641a82e8fca670b13281ecc3978fe03ae75478a75e33bbe11e2940"
+  digest = "1:aee8c2e5f3613a74519532a9a94600d70528b020e618b11f84dd034c0ee5f370"
   name = "github.com/mfirmanakbar/bookstore_utils-go"
   packages = ["rest_errors"]
   pruneopts = "UT"
-  revision = "e48bd3a5db0be12f4ae8499acefc6276ddfea617"
+  revision = "4545d5691030d180fa8c2553a1283ba57ae9f23c"
+  version = "v1.1"
 
 [[projects]]
   digest = "1:33422d238f147d247752996a26574ac48dcf472976eda7f5134015f06bf16563"
@@ -165,7 +162,7 @@
   revision = "2cfd321de3ee5d5f8a5fda2521d1703478334d98"
 
 [[projects]]
-  digest = "1:260048b6193e304ee294452a9e3410c474e3ce187248c7e2e4a2631207386f74"
+  digest = "1:7cf33d98a2a8d4ddb940ee365e1d93c334de32813767cf2e78bfb2774f6d78ec"
   name = "go.uber.org/zap"
   packages = [
     ".",
@@ -176,8 +173,8 @@
     "zapcore",
   ]
   pruneopts = "UT"
-  revision = "33e58d4d0120aa28d4df84cd244838c490846c9d"
-  version = "v1.13.0"
+  revision = "c89bd3c833f56cad3bc6dfa104b9c6d144526145"
+  version = "v1.14.0"
 
 [[projects]]
   branch = "master"
@@ -192,15 +189,15 @@
 
 [[projects]]
   branch = "master"
-  digest = "1:21170ea1a15ba3b4e49dd934e130f4e21edf3c117e24f07502fe46e45ff3a8fc"
+  digest = "1:f4caa38f81f81dc7832d923b152eddd743c2f088ef0269bcd6cba53ce5851485"
   name = "golang.org/x/sys"
   packages = ["unix"]
   pruneopts = "UT"
-  revision = "12a6c2dcc1e4cb348b57847c73987099e261714b"
+  revision = "cb0a6d8edb6c3528b01a0be84a5fe513dbf880a6"
 
 [[projects]]
   branch = "master"
-  digest = "1:048c2d9968a02665e815995397497caf0427a29789473b30cd21e209d5652328"
+  digest = "1:6c987c99d0278d185872430501897c2f78523b972e9a77b7ed62939e32c4a26d"
   name = "golang.org/x/tools"
   packages = [
     "go/analysis",
@@ -209,15 +206,17 @@
     "go/ast/inspector",
     "go/buildutil",
     "go/gcexportdata",
+    "go/internal/cgo",
     "go/internal/gcimporter",
     "go/internal/packagesdriver",
+    "go/loader",
     "go/packages",
     "go/types/objectpath",
     "go/types/typeutil",
     "internal/packagesinternal",
   ]
   pruneopts = "UT"
-  revision = "5916a50871fbb77650a14d484c89ca39f9487118"
+  revision = "e1da425f72fd3793b579f4e74d908ba96eb16c8a"
 
 [[projects]]
   digest = "1:0e49ce3bb641491517ba5035619be50aa07619814665c9761d0decb48f35ea94"
@@ -236,38 +235,42 @@
   version = "v2.2.8"
 
 [[projects]]
-  digest = "1:131158a88aad1f94854d0aa21a64af2802d0a470fb0f01cb33c04fafd2047111"
+  digest = "1:735ae15b76858155230553ed0845ba4cc1dbb7c2ca665ab33bfd2eb1509b219c"
   name = "honnef.co/go/tools"
   packages = [
     "arg",
     "cmd/staticcheck",
+    "code",
     "config",
     "deprecated",
+    "edit",
     "facts",
     "functions",
     "go/types/typeutil",
     "internal/cache",
-    "internal/passes/buildssa",
+    "internal/passes/buildir",
     "internal/renameio",
+    "internal/robustio",
     "internal/sharedcheck",
+    "ir",
+    "ir/irutil",
     "lint",
     "lint/lintdsl",
     "lint/lintutil",
     "lint/lintutil/format",
     "loader",
+    "pattern",
     "printf",
+    "report",
     "simple",
-    "ssa",
-    "ssautil",
     "staticcheck",
-    "staticcheck/vrp",
     "stylecheck",
     "unused",
     "version",
   ]
   pruneopts = "UT"
-  revision = "afd67930eec2a9ed3e9b19f684d17a062285f16a"
-  version = "2019.2.3"
+  revision = "508b5eb18ee2f667ce06235ed383647038e2afc5"
+  version = "2020.1.3"
 
 [solve-meta]
   analyzer-name = "dep"

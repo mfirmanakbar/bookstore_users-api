@@ -26,7 +26,7 @@ var (
 // #1. the purpose of pointer as * is to make us able to modified this user object
 // #2. Defer statements are generally used to ensure that the files are closed when your work is finished with them,
 // 	   or to close the channel, or to catch the panics in the program.
-func (user *User) Save() *rest_errors.RestErr { // #1
+func (user *User) Save() rest_errors.RestErr { // #1
 	stmt, err := bookstore_users_db.Client.Prepare(queryInsertUser)
 	if err != nil {
 		logger.Error("error when trying to prepare save user statement", err)
@@ -54,7 +54,7 @@ func (user *User) Save() *rest_errors.RestErr { // #1
 // #3. Scan --> for read all columns from const queryGetUser by sequence
 //     &user.Id --> the pointer `&` --> it means to take and POPULATE (Mengisi)
 //	   the point is the pointer `&` to make us able to modified User as the method already
-func (user *User) Get() *rest_errors.RestErr {
+func (user *User) Get() rest_errors.RestErr {
 	stmt, err := bookstore_users_db.Client.Prepare(queryGetUser)
 	if err != nil {
 		logger.Error("error when trying to prepare get user statement", err)
@@ -71,7 +71,7 @@ func (user *User) Get() *rest_errors.RestErr {
 	return nil
 }
 
-func (user *User) Update() *rest_errors.RestErr {
+func (user *User) Update() rest_errors.RestErr {
 	stmt, err := bookstore_users_db.Client.Prepare(queryUpdateUser)
 	if err != nil {
 		logger.Error("error when trying to prepare update user statement", err)
@@ -88,7 +88,7 @@ func (user *User) Update() *rest_errors.RestErr {
 	return nil
 }
 
-func (user *User) Delete() *rest_errors.RestErr {
+func (user *User) Delete() rest_errors.RestErr {
 	stmt, err := bookstore_users_db.Client.Prepare(queryDeleteUser)
 	if err != nil {
 		logger.Error("error when trying to prepare delete user statement", err)
@@ -104,7 +104,7 @@ func (user *User) Delete() *rest_errors.RestErr {
 	return nil
 }
 
-func (user *User) FindByStatus(status string) ([]User, *rest_errors.RestErr) {
+func (user *User) FindByStatus(status string) ([]User, rest_errors.RestErr) {
 	stmt, err := bookstore_users_db.Client.Prepare(queryFindByStatus)
 	if err != nil {
 		logger.Error("error when trying to prepare find user by status statement", err)
@@ -135,7 +135,7 @@ func (user *User) FindByStatus(status string) ([]User, *rest_errors.RestErr) {
 	return results, nil
 }
 
-func (user *User) FindByEmailAndPassword() *rest_errors.RestErr {
+func (user *User) FindByEmailAndPassword() rest_errors.RestErr {
 	stmt, err := bookstore_users_db.Client.Prepare(queryFindByEmailAndPassword)
 	if err != nil {
 		logger.Error("error when trying to prepare get user by email and password statement", err)

@@ -20,12 +20,14 @@
 *.iml
 *.ipr
 *.csv
+*.DS_Store
 
 # Created by https://www.gitignore.io/api/go
 
 ### Go Patch ###
 /vendor/
 /Godeps/
+/Gopkg.lock
 
 # Created by https://www.gitignore.io/api/intellij
 
